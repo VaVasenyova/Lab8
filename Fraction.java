@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Fraction {
     int numerator;
     int denominator;
-    
+
 
     private static int nod(int a, int b) { //НОД - это наибольшее число, на которое оба числа «a» и «b» делятся без остатка
         if (b == 0) {
@@ -64,7 +64,7 @@ public class Fraction {
             Fraction f2 = Fraction.check(frac2);
             Fraction sumResult = f1.add(f2);
             result = sumResult.reduction();
-            System.out.println(f1 + " + " + f2 + " = " + sumResult+ " = " + result);
+            System.out.println(f1 + " + " + f2 + " = " + sumResult + " = " + result);
         } else if (vychM.find()) {
             System.out.println("Формат строки верный: будет выполнена разность");
             String[] data = line.split("\\s[-]\\s");
@@ -92,9 +92,13 @@ public class Fraction {
             String frac2 = data[1];
             Fraction f1 = Fraction.check(frac1);
             Fraction f2 = Fraction.check(frac2);
-            Fraction razdelResult = f1.division(f2);
-            result = razdelResult.reduction();
-            System.out.println(f1 + " : " + f2 + " = " + razdelResult + " = " + result);
+            if (f2.numerator == 0) {
+                throw new IllegalArgumentException("На ноль делить нельзя");
+            } else {
+                Fraction razdelResult = f1.division(f2);
+                result = razdelResult.reduction();
+                System.out.println(f1 + " : " + f2 + " = " + razdelResult + " = " + result);
+            }
         } else {
             throw new IllegalArgumentException("Выражение введено неверно");
         }
@@ -211,6 +215,4 @@ public class Fraction {
         return numerator + "/" + denominator;
     }
 }
-
-
 
